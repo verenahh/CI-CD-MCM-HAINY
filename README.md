@@ -1,59 +1,56 @@
-# Exercise 2: Microservice Architecture, Docker & GitHub Actions
+# Continuous Delivery in Agile Software Development -- Exercises
 
-**Course:** Continuous Delivery in Agile Software Development (Master)
-**Points:** 24
+This repository contains four progressive exercises for the Master course **Continuous Delivery in Agile Software Development**.
 
-## Learning Objectives
+## Overview
 
-- Understand microservice architecture with a REST API in Go
-- Containerize applications using Docker (multi-stage builds)
-- Orchestrate services with Docker Compose
-- Set up a basic CI pipeline with GitHub Actions
+| Exercise | Topic | Branch |
+|----------|-------|--------|
+| 1 | Git Basics: PRs, Interactive Rebase, Unit Tests | `exercise/01-git-basics` |
+| 2 | Microservice Architecture, Docker & GitHub Actions | `exercise/02-microservice-docker` |
+| 3 | CI Pipeline: SonarCloud, Matrix Builds, Linting | `exercise/03-ci-pipeline` |
+| 4 | Vulnerability Scanning & Kubernetes Deployment | `exercise/04-security-k8s` |
+
+## Technology Stack
+
+- **Language:** Go 1.22+
+- **Web Framework:** Gorilla Mux
+- **Database:** PostgreSQL
+- **Containerization:** Docker & Docker Compose
+- **CI/CD:** GitHub Actions
+- **Code Quality:** SonarCloud, golangci-lint
+- **Security:** Trivy, Snyk
+- **Deployment:** Kubernetes (Minikube)
+
+## Project: Product Catalog API
+
+Throughout the exercises, you will build and evolve a RESTful Product Catalog API with CRUD operations, backed by PostgreSQL.
 
 ## Prerequisites
 
-- Completed Exercise 1
-- Docker Desktop installed
-- Basic understanding of REST APIs
+- Go 1.22+ installed
+- Git 2.30+
+- GitHub Account
+- Docker Desktop (from Exercise 2)
+- Minikube (Exercise 4)
 
-## Project Overview
+## Getting Started
 
-The Product Catalog API has been extended with:
-- **PostgreSQL storage** (`internal/store/postgres.go`) -- persistent database backend
-- **Dockerfile** -- multi-stage build for minimal container image
-- **docker-compose.yml** -- orchestrates API + PostgreSQL
-- **GitHub Actions** (`.github/workflows/ci.yml`) -- basic CI pipeline
-
-### Architecture
-
-```
-┌──────────────┐     ┌──────────────┐
-│   Client     │────▶│   API (Go)   │
-│  (curl/HTTP) │     │   Port 8080  │
-└──────────────┘     └──────┬───────┘
-                            │
-                     ┌──────▼───────┐
-                     │  PostgreSQL  │
-                     │  Port 5432   │
-                     └──────────────┘
-```
-
-### Local Development
+1. **Fork** this repository on GitHub (click the "Fork" button in the top right corner). All exercise branches will be included in your fork.
+2. **Clone** your fork:
 
 ```bash
-# Run with in-memory store (no Docker needed)
-go run ./cmd/api
-
-# Run with Docker Compose (API + PostgreSQL)
-docker compose up --build
-
-# Test the API
-curl http://localhost:8080/health
-curl http://localhost:8080/products
-curl -X POST http://localhost:8080/products \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Widget","price":9.99}'
+git clone https://github.com/<your-username>/CI-CD-MCM.git
+cd CI-CD-MCM
 ```
+
+3. Switch to the respective exercise branch:
+
+```bash
+git checkout exercise/01-git-basics
+```
+
+> **Important:** Do not clone the original repository directly — always work on your own fork so you can push changes and create Pull Requests.
 
 Each exercise branch contains a detailed `README.md` with instructions.
 
