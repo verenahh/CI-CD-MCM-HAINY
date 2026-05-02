@@ -56,3 +56,8 @@ Each exercise branch contains a detailed `README.md` with instructions.
 
 ## Author
 - FH-Prof. Dr. Marc Kurz (marc.kurz@fh-hagenberg.at)
+
+# GitHub Actions Workflow (Task 2)
+
+[![CI](https://github.com/verenahh/CI-CD-MCM--HAINY-/actions/workflows/ci.yml/badge.svg)](https://github.com/verenahh/CI-CD-MCM--HAINY-/actions/workflows/ci.yml)
+
