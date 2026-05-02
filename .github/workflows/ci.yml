@@ -57,4 +57,5 @@ jobs:
               --platform linux/amd64 \
               --tag product-catalog:${{ github.sha }} \
               --load .
+          fi
 
