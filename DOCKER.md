@@ -27,3 +27,31 @@ Why is iz important?
 | **Multi-stage** | **~20MB** | Minimal OS + Your Binary |
 
 If I’m not copmletely mistaken, this comparison is about the Multi-stage final image size vs. the Single-stage (final) image size? In this case, the Multi-stage approach would be much more efficient as it contains a lot less things in the build.
+
+## Task 3- Testing
+
+### Test operations with curl
+
+#### Create 3+ products and list them afterwarts
+Result: [{"id":1,"name":"test product 1","price":10},{"id":2,"name":"test product 2","price":20},{"id":3,"name":"test product 3","price":30},{"id":4,"name":"test product 4","price":40}]
+#### Update price of product 1 and 2 and list them
+
+Result:[{"id":1,"name":"test product 1","price":100},{"id":2,"name":"test product 2","price":200},{"id":3,"name":"test product 3","price":30},{"id":4,"name":"test product 4","price":40}]
+
+#### Delete products 2 and three
+Result: [{"id":1,"name":"test product 1","price":100},{"id":4,"name":"test product 4","price":40}]
+
+### Verify data persistance
+#### Running docker compose down&&docker compose up.
+Result: WARN[0000] /Users/verenah/Documents/CICD/CI-CD-MCM-HAINY/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[+] down 3/3
+ ✔ Container ci-cd-mcm-hainy-api-1 Removed                                                                                                      0.2s
+ ✔ Container ci-cd-mcm-hainy-db-1  Removed                                                                                                      0.2s
+ ✔ Network ci-cd-mcm-hainy_default Removed                                                                                                      0.2s
+WARN[0000] /Users/verenah/Documents/CICD/CI-CD-MCM-HAINY/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[+] up 3/3
+ ✔ Network ci-cd-mcm-hainy_default Created                                                                                                      0.0s
+ ✔ Container ci-cd-mcm-hainy-db-1  Created                                                                                                      0.0s
+ ✔ Container ci-cd-mcm-hainy-api-1 Created   
+#### Open new terminal and list products.
+Result: [{"id":1,"name":"test product 1","price":100},{"id":4,"name":"test product 4","price":40}]
