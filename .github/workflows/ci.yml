@@ -31,7 +31,7 @@ jobs:
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-${{ matrix.go-version }}
+          name: coverage-${{ matrix.os }}-${{ matrix.go-version }}
           path: coverage.out
 
       - name: Build
@@ -80,6 +80,26 @@ jobs:
           push: false
           tags: product-catalog:${{ github.sha }}
 
-  # TODO: Add sonarcloud job
-  # Hint: Use the SonarSource/sonarqube-scan-action or sonarcloud-github-action
-  # You will need to configure sonar-project.properties
+  sonarcloud:
+    name: SonarCloud analysis
+    runs-on: ubuntu-latest
+    needs: [test]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-ubuntu-latest-1.26
+          path: .
+
+      - name: Run SonarCloud analysis
+        uses: SonarSource/sonarqube-scan-action@v2
+        with:
+          sonarToken: ${{ secrets.SONAR_TOKEN }}
+          organization: ${{ secrets.SONAR_ORGANIZATION }}
+          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+          projectBaseDir: .
+          extraArgs: >
+            -Dsonar.go.coverage.reportPaths=coverage.out
