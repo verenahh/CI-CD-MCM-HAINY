@@ -3,7 +3,7 @@
 **Course:** Continuous Delivery in Agile Software Development (Master)
 **Points:** 24
 
-## Learning Objectives
+## Overview
 
 - Extend a CI pipeline with quality gates and code analysis
 - Configure SonarCloud for static code analysis and coverage tracking
@@ -24,9 +24,16 @@
 - **golangci-lint configuration** (`.golangci.yml`) -- linter rules
 - **Coverage reporting** -- `go test -coverprofile`
 
----
+- **Language:** Go 1.24+
+- **Web Framework:** Gorilla Mux
+- **Database:** PostgreSQL
+- **Containerization:** Docker & Docker Compose
+- **CI/CD:** GitHub Actions
+- **Code Quality:** SonarCloud, golangci-lint
+- **Security:** Trivy, govulncheck
+- **Deployment:** Kubernetes (Minikube)
 
-## Tasks
+## Project: Product Catalog API
 
 ### Task 1: Matrix Builds (4 Points)
 
@@ -40,7 +47,14 @@ The CI workflow already has a matrix strategy with one Go version. Your tasks:
 
 **Deliverable:** Screenshot of the GitHub Actions matrix view showing all jobs.
 
----
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/health` | Health check |
+| GET | `/products` | List all products |
+| POST | `/products` | Create a new product |
+| GET | `/products/{id}` | Get a product by ID |
+| PUT | `/products/{id}` | Update a product |
+| DELETE | `/products/{id}` | Delete a product |
 
 ### Task 2: Linting with golangci-lint (6 Points)
 
@@ -119,9 +133,9 @@ The CI workflow already has a matrix strategy with one Go version. Your tasks:
 
 **Deliverable:** Coverage report showing >= 80%. Updated tests. Coverage HTML artifact downloadable from the Actions run.
 
----
+# GitHub Actions Workflow (Task 2)
 
-## Grading
+[![CI](https://github.com/verenahh/CI-CD-MCM--HAINY-/actions/workflows/ci.yml/badge.svg)](https://github.com/verenahh/CI-CD-MCM--HAINY-/actions/workflows/ci.yml)
 
 | Task | Points |
 |------|--------|
