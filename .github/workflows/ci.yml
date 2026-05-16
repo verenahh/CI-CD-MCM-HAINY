@@ -37,12 +37,35 @@ jobs:
       - name: Build
         run: go build -o api-server ./cmd/api
 
-  # TODO: Add lint job using golangci-lint
-  # Hint: Use the golangci/golangci-lint-action@v4 action
+  lint:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        go-version: ["1.26", "1.25"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Install golangci-lint (build with runner Go)
+        run: |
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+
+      - name: Run golangci-lint
+        run: |
+          golangci-lint --version
+          golangci-lint run --config=.golangci.yml --out-format=colored-line-number
 
   docker-build:
     runs-on: ubuntu-latest
-    needs: test
+    needs: [test, lint]
 
     steps:
       - uses: actions/checkout@v4
