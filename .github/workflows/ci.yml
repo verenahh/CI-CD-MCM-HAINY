@@ -28,6 +28,15 @@ jobs:
       - name: Run tests with coverage
         run: go test -v -coverprofile=coverage.out ./...
 
+      - name: Check coverage threshold
+        run: |
+          coverage=$(go tool cover -func=coverage.out | awk '/total:/ {gsub("%", "", $3); print $3}')
+          echo "Coverage is $coverage%"
+          if [ "$(echo "$coverage < 80" | bc -l)" -eq 1 ]; then
+            echo "::error::Code coverage ($coverage%) is below the required 80%."
+            exit 1
+          fi
+
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
