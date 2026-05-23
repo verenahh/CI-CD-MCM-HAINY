@@ -7,16 +7,17 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o /api-server ./cmd/api
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o api-server ./cmd/api
+
 
 # Runtime stage
-FROM alpine:3.19
+FROM scratch
 
-RUN apk --no-cache add ca-certificates
+WORKDIR /
 
-WORKDIR /app
-COPY --from=builder /api-server .
+COPY --from=builder /app/api-server /api-server
 
 EXPOSE 8080
 
-ENTRYPOINT ["./api-server"]
+ENTRYPOINT ["/api-server"]
